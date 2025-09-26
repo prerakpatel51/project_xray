@@ -233,7 +233,7 @@ class MedicalXRayDataset(Dataset):
                 transformed = self.transforms(image=image)
                 image = transformed['image']
             else:
-                # Torchvision transforms
+                # Torchvision transforms (they start with ToPILImage())
                 image = self.transforms(image)
                 # Ensure single channel for grayscale
                 if image.shape[0] == 3:

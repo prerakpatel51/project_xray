@@ -1,0 +1,159 @@
+Channels:
+ - defaults
+Platform: linux-64
+Collecting package metadata (repodata.json): - \ | / - \ | / - \ | / - \ | / - \ | done
+Solving environment: - \ | / - \ | / - done
+
+# All requested packages already installed.
+
+/home1/ppatel2025/miniconda3/envs/vision_mamba/lib/python3.10/site-packages/requests/__init__.py:86: RequestsDependencyWarning: Unable to find acceptable character detection dependency (chardet or charset_normalizer).
+  warnings.warn(
+[I 2025-09-26 09:34:42.562 ServerApp] Extension package jupyter_lsp took 0.3531s to import
+[I 2025-09-26 09:34:42.721 ServerApp] Extension package jupyter_server_terminals took 0.1578s to import
+[I 2025-09-26 09:34:49.757 ServerApp] jupyter_lsp | extension was successfully linked.
+[I 2025-09-26 09:34:49.768 ServerApp] jupyter_server_terminals | extension was successfully linked.
+[I 2025-09-26 09:34:49.779 ServerApp] jupyterlab | extension was successfully linked.
+[I 2025-09-26 09:34:49.791 ServerApp] notebook | extension was successfully linked.
+[W 2025-09-26 09:34:54.533 ServerApp] jupyter_nbextensions_configurator | error adding extension (enabled: True): The module 'jupyter_nbextensions_configurator' could not be found (No module named 'jupyter_nbextensions_configurator'). Are you sure the extension is installed?
+    Traceback (most recent call last):
+      File "/home1/ppatel2025/miniconda3/envs/vision_mamba/lib/python3.10/site-packages/jupyter_server/extension/manager.py", line 358, in add_extension
+        extpkg = ExtensionPackage(name=extension_name, enabled=enabled)
+      File "/home1/ppatel2025/miniconda3/envs/vision_mamba/lib/python3.10/site-packages/jupyter_server/extension/manager.py", line 212, in __init__
+        self._load_metadata()
+      File "/home1/ppatel2025/miniconda3/envs/vision_mamba/lib/python3.10/site-packages/jupyter_server/extension/manager.py", line 227, in _load_metadata
+        raise ExtensionModuleNotFound(msg) from None
+    jupyter_server.extension.utils.ExtensionModuleNotFound: The module 'jupyter_nbextensions_configurator' could not be found (No module named 'jupyter_nbextensions_configurator'). Are you sure the extension is installed?
+[I 2025-09-26 09:34:54.540 ServerApp] notebook_shim | extension was successfully linked.
+[I 2025-09-26 09:34:54.746 ServerApp] notebook_shim | extension was successfully loaded.
+[I 2025-09-26 09:34:54.752 ServerApp] jupyter_lsp | extension was successfully loaded.
+[I 2025-09-26 09:34:54.757 ServerApp] jupyter_server_terminals | extension was successfully loaded.
+[I 2025-09-26 09:34:54.994 LabApp] JupyterLab extension loaded from /home1/ppatel2025/miniconda3/envs/vision_mamba/lib/python3.10/site-packages/jupyterlab
+[I 2025-09-26 09:34:54.994 LabApp] JupyterLab application directory is /home1/ppatel2025/miniconda3/envs/vision_mamba/share/jupyter/lab
+[I 2025-09-26 09:34:54.995 LabApp] Extension Manager is 'pypi'.
+[I 2025-09-26 09:34:55.658 ServerApp] jupyterlab | extension was successfully loaded.
+[I 2025-09-26 09:34:55.671 ServerApp] notebook | extension was successfully loaded.
+[I 2025-09-26 09:34:55.672 ServerApp] Serving notebooks from local directory: /home1/ppatel2025/project_xray
+[I 2025-09-26 09:34:55.672 ServerApp] Jupyter Server 2.16.0 is running at:
+[I 2025-09-26 09:34:55.672 ServerApp] http://gpu01:8888/tree?token=5c7f13daa5f02e55da83613987c75fc25859528359a3cd67
+[I 2025-09-26 09:34:55.672 ServerApp]     http://127.0.0.1:8888/tree?token=5c7f13daa5f02e55da83613987c75fc25859528359a3cd67
+[I 2025-09-26 09:34:55.672 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 2025-09-26 09:34:55.706 ServerApp] 
+    
+    To access the server, open this file in a browser:
+        file:///home1/ppatel2025/.local/share/jupyter/runtime/jpserver-3124054-open.html
+    Or copy and paste one of these URLs:
+        http://gpu01:8888/tree?token=5c7f13daa5f02e55da83613987c75fc25859528359a3cd67
+        http://127.0.0.1:8888/tree?token=5c7f13daa5f02e55da83613987c75fc25859528359a3cd67
+[I 2025-09-26 09:34:57.034 ServerApp] Skipped non-installed server(s): bash-language-server, dockerfile-language-server-nodejs, javascript-typescript-langserver, jedi-language-server, julia-language-server, pyright, python-language-server, python-lsp-server, r-languageserver, sql-language-server, texlab, typescript-language-server, unified-language-server, vscode-css-languageserver-bin, vscode-html-languageserver-bin, vscode-json-languageserver-bin, yaml-language-server
+[I 2025-09-26 09:35:14.397 ServerApp] 302 GET / (@172.26.255.129) 1.23ms
+[I 2025-09-26 09:35:14.406 JupyterNotebookApp] 302 GET /tree? (@172.26.255.129) 1.39ms
+[I 2025-09-26 09:35:16.221 ServerApp] 302 GET / (@172.26.255.129) 0.95ms
+[I 2025-09-26 09:35:16.226 JupyterNotebookApp] 302 GET /tree? (@172.26.255.129) 1.18ms
+[I 2025-09-26 09:35:22.739 ServerApp] 302 GET / (@172.26.255.129) 0.99ms
+[I 2025-09-26 09:35:22.744 JupyterNotebookApp] 302 GET /tree? (@172.26.255.129) 1.13ms
+[I 2025-09-26 09:35:23.043 ServerApp] Kernel started: 52590be0-dc0a-4ced-ab80-0edccaac6fb5
+[I 2025-09-26 09:35:38.478 ServerApp] Connecting to kernel 52590be0-dc0a-4ced-ab80-0edccaac6fb5.
+[W 2025-09-26 09:35:38.481 ServerApp] The websocket_ping_timeout (90000) cannot be longer than the websocket_ping_interval (30000).
+    Setting websocket_ping_timeout=30000
+Collecting opencv-python
+  Using cached opencv_python-4.12.0.88-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (19 kB)
+Collecting einops
+  Using cached einops-0.8.1-py3-none-any.whl.metadata (13 kB)
+Collecting numpy<2.3.0,>=2 (from opencv-python)
+  Using cached numpy-2.0.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (60 kB)
+Using cached opencv_python-4.12.0.88-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (67.0 MB)
+Using cached numpy-2.0.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (19.5 MB)
+Using cached einops-0.8.1-py3-none-any.whl (64 kB)
+Installing collected packages: numpy, einops, opencv-python
+[?25l[2K  Attempting uninstall: numpy
+[2K    Found existing installation: numpy 1.24.4
+[2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K    Uninstalling numpy-1.24.4:
+   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K      Successfully uninstalled numpy-1.24.4
+   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][33m  WARNING: Failed to remove contents in a temporary directory '/home1/ppatel2025/miniconda3/envs/ml-cuda114/lib/python3.9/site-packages/~umpy.libs'.
+  You can safely remove it manually.[0m[33m
+[0m[2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][2K   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0/3[0m [numpy][33m  WARNING: Failed to remove contents in a temporary directory '/home1/ppatel2025/miniconda3/envs/ml-cuda114/lib/python3.9/site-packages/~umpy'.
+  You can safely remove it manually.[0m[33m
+[0m[2K   [38;2;249;38;114m━━━━━━━━━━━━━[0m[38;5;237m╺[0m[38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m1/3[0m [einops][2K   [38;2;249;38;114m━━━━━━━━━━━━━[0m[38;5;237m╺[0m[38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m1/3[0m [einops][2K   [38;2;249;38;114m━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[38;2;249;38;114m╸[0m[38;5;237m━━━━━━━━━━━━━[0m [32m2/3[0m [opencv-python][2K   [38;2;249;38;114m━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[38;2;249;38;114m╸[0m[38;5;237m━━━━━━━━━━━━━[0m [32m2/3[0m [opencv-python][2K   [38;2;249;38;114m━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[38;2;249;38;114m╸[0m[38;5;237m━━━━━━━━━━━━━[0m [32m2/3[0m [opencv-python][2K   [38;2;249;38;114m━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[38;2;249;38;114m╸[0m[38;5;237m━━━━━━━━━━━━━[0m [32m2/3[0m [opencv-python][2K   [38;2;249;38;114m━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[38;2;249;38;114m╸[0m[38;5;237m━━━━━━━━━━━━━[0m [32m2/3[0m [opencv-python][2K   [38;2;249;38;114m━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[38;2;249;38;114m╸[0m[38;5;237m━━━━━━━━━━━━━[0m [32m2/3[0m [opencv-python][2K   [38;2;249;38;114m━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[38;2;249;38;114m╸[0m[38;5;237m━━━━━━━━━━━━━[0m [32m2/3[0m [opencv-python][2K   [38;2;249;38;114m━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[38;2;249;38;114m╸[0m[38;5;237m━━━━━━━━━━━━━[0m [32m2/3[0m [opencv-python][2K   [38;2;249;38;114m━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[38;2;249;38;114m╸[0m[38;5;237m━━━━━━━━━━━━━[0m [32m2/3[0m [opencv-python][2K   [38;2;249;38;114m━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[38;2;249;38;114m╸[0m[38;5;237m━━━━━━━━━━━━━[0m [32m2/3[0m [opencv-python][2K   [38;2;249;38;114m━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[38;2;249;38;114m╸[0m[38;5;237m━━━━━━━━━━━━━[0m [32m2/3[0m [opencv-python][2K   [38;2;249;38;114m━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[38;2;249;38;114m╸[0m[38;5;237m━━━━━━━━━━━━━[0m [32m2/3[0m [opencv-python][2K   [38;2;249;38;114m━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[38;2;249;38;114m╸[0m[38;5;237m━━━━━━━━━━━━━[0m [32m2/3[0m [opencv-python][2K   [38;2;249;38;114m━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[38;2;249;38;114m╸[0m[38;5;237m━━━━━━━━━━━━━[0m [32m2/3[0m [opencv-python][2K   [38;2;249;38;114m━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[38;2;249;38;114m╸[0m[38;5;237m━━━━━━━━━━━━━[0m [32m2/3[0m [opencv-python][2K   [38;2;114;156;31m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m3/3[0m [opencv-python]
+[?25h[1A[2K[31mERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+geemap 0.35.3 requires plotly, which is not installed.
+monai 1.4.0 requires numpy<2.0,>=1.24, but you have numpy 2.0.2 which is incompatible.
+torchmetrics 1.7.0 requires torch>=2.0.0, but you have torch 1.12.1+cu113 which is incompatible.
+tensorflow 2.6.0 requires h5py~=3.1.0, but you have h5py 3.13.0 which is incompatible.
+tensorflow 2.6.0 requires numpy~=1.19.2, but you have numpy 2.0.2 which is incompatible.
+tensorflow 2.6.0 requires typing-extensions~=3.7.4, but you have typing-extensions 4.14.0 which is incompatible.[0m[31m
+[0mSuccessfully installed einops-0.8.1 numpy-2.0.2 opencv-python-4.12.0.88
+[I 2025-09-26 09:49:30.120 ServerApp] Kernel interrupted: 52590be0-dc0a-4ced-ab80-0edccaac6fb5
+[I 2025-09-26 09:50:10.146 ServerApp] Kernel interrupted: 52590be0-dc0a-4ced-ab80-0edccaac6fb5
+[I 2025-09-26 09:51:43.536 ServerApp] Kernel interrupted: 52590be0-dc0a-4ced-ab80-0edccaac6fb5
+[I 2025-09-26 09:53:05.975 ServerApp] Kernel restarted: 52590be0-dc0a-4ced-ab80-0edccaac6fb5
+[I 2025-09-26 09:53:05.983 ServerApp] Starting buffering for 52590be0-dc0a-4ced-ab80-0edccaac6fb5:4e16c20f-e434-4572-95e4-e49a5a023686
+[I 2025-09-26 09:53:06.002 ServerApp] Connecting to kernel 52590be0-dc0a-4ced-ab80-0edccaac6fb5.
+[I 2025-09-26 09:53:06.002 ServerApp] Restoring connection for 52590be0-dc0a-4ced-ab80-0edccaac6fb5:4e16c20f-e434-4572-95e4-e49a5a023686
+[W 2025-09-26 09:53:10.522 ServerApp] Nudge: attempt 10 on kernel 52590be0-dc0a-4ced-ab80-0edccaac6fb5
+Collecting numpy<2
+  Downloading numpy-1.26.4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (61 kB)
+Downloading numpy-1.26.4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (18.2 MB)
+[?25l   [38;5;237m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/18.2 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [38;2;249;38;114m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[38;5;237m╺[0m [32m17.8/18.2 MB[0m [31m98.9 MB/s[0m eta [36m0:00:01[0m[2K   [38;2;114;156;31m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m18.2/18.2 MB[0m [31m63.9 MB/s[0m eta [36m0:00:00[0m
+[?25hInstalling collected packages: numpy
+  Attempting uninstall: numpy
+    Found existing installation: numpy 2.0.2
+    Uninstalling numpy-2.0.2:
+      Successfully uninstalled numpy-2.0.2
+[33m  WARNING: Failed to remove contents in a temporary directory '/home1/ppatel2025/miniconda3/envs/ml-cuda114/lib/python3.9/site-packages/~-mpy.libs'.
+  You can safely remove it manually.[0m[33m
+[0m[33m  WARNING: Failed to remove contents in a temporary directory '/home1/ppatel2025/miniconda3/envs/ml-cuda114/lib/python3.9/site-packages/~-mpy'.
+  You can safely remove it manually.[0m[33m
+[0m[31mERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+geemap 0.35.3 requires plotly, which is not installed.
+torchmetrics 1.7.0 requires torch>=2.0.0, but you have torch 1.12.1+cu113 which is incompatible.
+opencv-python 4.12.0.88 requires numpy<2.3.0,>=2; python_version >= "3.9", but you have numpy 1.26.4 which is incompatible.
+tensorflow 2.6.0 requires h5py~=3.1.0, but you have h5py 3.13.0 which is incompatible.
+tensorflow 2.6.0 requires numpy~=1.19.2, but you have numpy 1.26.4 which is incompatible.
+tensorflow 2.6.0 requires typing-extensions~=3.7.4, but you have typing-extensions 4.14.0 which is incompatible.[0m[31m
+[0mSuccessfully installed numpy-1.26.4
+[I 2025-09-26 09:55:40.611 ServerApp] Kernel restarted: 52590be0-dc0a-4ced-ab80-0edccaac6fb5
+[I 2025-09-26 09:55:40.616 ServerApp] Starting buffering for 52590be0-dc0a-4ced-ab80-0edccaac6fb5:4e16c20f-e434-4572-95e4-e49a5a023686
+[I 2025-09-26 09:55:40.626 ServerApp] Connecting to kernel 52590be0-dc0a-4ced-ab80-0edccaac6fb5.
+[I 2025-09-26 09:55:40.626 ServerApp] Restoring connection for 52590be0-dc0a-4ced-ab80-0edccaac6fb5:4e16c20f-e434-4572-95e4-e49a5a023686
+[I 2025-09-26 09:55:44.356 ServerApp] Kernel restarted: 52590be0-dc0a-4ced-ab80-0edccaac6fb5
+[I 2025-09-26 09:55:44.362 ServerApp] Starting buffering for 52590be0-dc0a-4ced-ab80-0edccaac6fb5:4e16c20f-e434-4572-95e4-e49a5a023686
+[I 2025-09-26 09:55:44.374 ServerApp] Connecting to kernel 52590be0-dc0a-4ced-ab80-0edccaac6fb5.
+[I 2025-09-26 09:55:44.375 ServerApp] Restoring connection for 52590be0-dc0a-4ced-ab80-0edccaac6fb5:4e16c20f-e434-4572-95e4-e49a5a023686
+Requirement already satisfied: opencv-python in /home1/ppatel2025/miniconda3/envs/ml-cuda114/lib/python3.9/site-packages (4.12.0.88)
+Requirement already satisfied: einops in /home1/ppatel2025/miniconda3/envs/ml-cuda114/lib/python3.9/site-packages (0.8.1)
+Collecting numpy<2.3.0,>=2 (from opencv-python)
+  Using cached numpy-2.0.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (60 kB)
+Using cached numpy-2.0.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (19.5 MB)
+Installing collected packages: numpy
+  Attempting uninstall: numpy
+    Found existing installation: numpy 1.26.4
+    Uninstalling numpy-1.26.4:
+      Successfully uninstalled numpy-1.26.4
+[33m  WARNING: Failed to remove contents in a temporary directory '/home1/ppatel2025/miniconda3/envs/ml-cuda114/lib/python3.9/site-packages/~~mpy.libs'.
+  You can safely remove it manually.[0m[33m
+[0m[33m  WARNING: Failed to remove contents in a temporary directory '/home1/ppatel2025/miniconda3/envs/ml-cuda114/lib/python3.9/site-packages/~~mpy'.
+  You can safely remove it manually.[0m[33m
+[0m[31mERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+geemap 0.35.3 requires plotly, which is not installed.
+monai 1.4.0 requires numpy<2.0,>=1.24, but you have numpy 2.0.2 which is incompatible.
+torchmetrics 1.7.0 requires torch>=2.0.0, but you have torch 1.12.1+cu113 which is incompatible.
+tensorflow 2.6.0 requires h5py~=3.1.0, but you have h5py 3.13.0 which is incompatible.
+tensorflow 2.6.0 requires numpy~=1.19.2, but you have numpy 2.0.2 which is incompatible.
+tensorflow 2.6.0 requires typing-extensions~=3.7.4, but you have typing-extensions 4.14.0 which is incompatible.[0m[31m
+[0mSuccessfully installed numpy-2.0.2
+Collecting numpy<2
+  Using cached numpy-1.26.4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (61 kB)
+Using cached numpy-1.26.4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (18.2 MB)
+Installing collected packages: numpy
+  Attempting uninstall: numpy
+    Found existing installation: numpy 2.0.2
+    Uninstalling numpy-2.0.2:
+      Successfully uninstalled numpy-2.0.2
+[31mERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+geemap 0.35.3 requires plotly, which is not installed.
+torchmetrics 1.7.0 requires torch>=2.0.0, but you have torch 1.12.1+cu113 which is incompatible.
+opencv-python 4.12.0.88 requires numpy<2.3.0,>=2; python_version >= "3.9", but you have numpy 1.26.4 which is incompatible.
+tensorflow 2.6.0 requires h5py~=3.1.0, but you have h5py 3.13.0 which is incompatible.
+tensorflow 2.6.0 requires numpy~=1.19.2, but you have numpy 1.26.4 which is incompatible.
+tensorflow 2.6.0 requires typing-extensions~=3.7.4, but you have typing-extensions 4.14.0 which is incompatible.[0m[31m
+[0mSuccessfully installed numpy-1.26.4

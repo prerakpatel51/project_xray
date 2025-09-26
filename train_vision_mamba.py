@@ -86,9 +86,9 @@ def parse_args():
                        help='Balance training data by oversampling rare classes')
 
     # System arguments
-    parser.add_argument('--num_workers', type=int, default=4,
+    parser.add_argument('--num_workers', type=int, default=12,
                        help='Number of data loader workers')
-    parser.add_argument('--device', type=str, default='auto',
+    parser.add_argument('--device', type=str, default='cuda',
                        help='Device to use (auto, cpu, cuda)')
     parser.add_argument('--seed', type=int, default=42,
                        help='Random seed')
@@ -96,8 +96,10 @@ def parse_args():
     # Checkpointing
     parser.add_argument('--save_dir', type=str, default='checkpoints',
                        help='Directory to save checkpoints')
-    parser.add_argument('--save_freq', type=int, default=10,
-                       help='Checkpoint saving frequency')
+    parser.add_argument('--save_freq', type=int, default=1,
+                       help='Checkpoint saving frequency (save every N epochs)')
+    parser.add_argument('--save_csv', action='store_true', default=True,
+                       help='Save training/validation losses to CSV file')
     parser.add_argument('--resume', type=str, default=None,
                        help='Path to checkpoint to resume from')
 
