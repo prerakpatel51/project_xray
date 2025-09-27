@@ -15,7 +15,7 @@ from pathlib import Path
 project_root = Path(__file__).parent
 sys.path.append(str(project_root))
 
-from models.vision_mamba import create_vision_mamba_model, MEDICAL_CONDITIONS
+from models.vision_mamba import create_vit_mamba_model, MEDICAL_CONDITIONS
 from data.medical_dataset import MedicalDataManager
 from training.trainer import MedicalTrainer
 
@@ -47,7 +47,7 @@ def parse_args():
     parser.add_argument('--model_size', type=str, default='base',
                        choices=['tiny', 'small', 'base', 'large'],
                        help='Model size variant')
-    parser.add_argument('--img_size', type=int, default=512,
+    parser.add_argument('--img_size', type=int, default=1024,
                        help='Input image size')
     parser.add_argument('--patch_size', type=int, default=16,
                        help='Patch size for Vision Mamba')
@@ -55,9 +55,9 @@ def parse_args():
     # Training arguments
     parser.add_argument('--epochs', type=int, default=100,
                        help='Number of training epochs')
-    parser.add_argument('--batch_size', type=int, default=16,
+    parser.add_argument('--batch_size', type=int, default=4,
                        help='Batch size')
-    parser.add_argument('--learning_rate', type=float, default=1e-4,
+    parser.add_argument('--learning_rate', type=float, default=3e-5,
                        help='Learning rate')
     parser.add_argument('--weight_decay', type=float, default=0.01,
                        help='Weight decay')
@@ -65,7 +65,7 @@ def parse_args():
                        help='Gradient clipping norm')
 
     # Loss function
-    parser.add_argument('--loss_type', type=str, default='focal',
+    parser.add_argument('--loss_type', type=str, default='bce',
                        choices=['bce', 'focal', 'asymmetric'],
                        help='Loss function type')
     parser.add_argument('--focal_alpha', type=float, default=1.0,
@@ -123,7 +123,6 @@ def setup_device(device_arg):
     if device.type == 'cuda':
         print(f"GPU: {torch.cuda.get_device_name(0)}")
         print(f"Memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
-
     return device
 
 
@@ -132,6 +131,7 @@ def create_config(args):
     config = {
         # Model config
         'model_size': args.model_size,
+        'mamba_layers': [3, 6, 9],
         'img_size': args.img_size,
         'patch_size': args.patch_size,
         'num_classes': len(MEDICAL_CONDITIONS),
@@ -213,11 +213,12 @@ def main():
     print(f"  Test batches: {len(test_loader)}")
 
     # Create model
-    print(f"\\nCreating Vision Mamba model ({args.model_size})...")
-    model = create_vision_mamba_model(
+    print(f"\\nCreating ViT-Mamba Hybrid model ({args.model_size})...")
+    model = create_vit_mamba_model(
         num_classes=len(MEDICAL_CONDITIONS),
         img_size=args.img_size,
         model_size=args.model_size,
+        mamba_layers=[3, 6, 9],  # Use Mamba at layers 3, 6, 9
     )
 
     # Move model to device

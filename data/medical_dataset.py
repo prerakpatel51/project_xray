@@ -22,6 +22,10 @@ except ImportError:
     print("Warning: albumentations not available. Using torchvision transforms instead.")
     from torchvision import transforms
 
+# Dataset-specific normalization values (from dataset_stats.json)
+DATASET_MEAN = [0.5061]  # Grayscale mean
+DATASET_STD = [0.2313]   # Grayscale std
+
 
 # Medical conditions mapping
 MEDICAL_CONDITIONS = [
@@ -57,7 +61,6 @@ class MedicalTransforms:
                 value=0,
                 p=0.3
             ),
-            A.HorizontalFlip(p=0.5),
 
             # Noise and blur (simulate real-world conditions)
             A.OneOf([
@@ -67,19 +70,37 @@ class MedicalTransforms:
             ], p=0.2),
 
             # Normalize to [0, 1] and convert to tensor
-            A.Normalize(mean=[0.485], std=[0.229]),  # ImageNet stats for grayscale
+            A.Normalize(mean=DATASET_MEAN, std=DATASET_STD),  # Dataset-specific stats
             ToTensorV2(),
         ])
         else:
-            # Fallback to torchvision transforms
+            # Medical-specific torchvision transforms
             return transforms.Compose([
                 transforms.ToPILImage(),
                 transforms.Resize((img_size, img_size)),
-                transforms.RandomHorizontalFlip(p=0.5),
-                transforms.RandomRotation(10),
-                transforms.ColorJitter(brightness=0.2, contrast=0.2),
+
+                # Conservative geometric augmentations for medical images
+                transforms.RandomRotation(degrees=5, fill=0),  # Only ±5° rotation
+                transforms.RandomAffine(
+                    degrees=0,
+                    translate=(0.05, 0.05),  # Small translations only
+                    scale=(0.95, 1.05),      # Minimal scaling
+                    fill=0
+                ),
+
+                # Medical-appropriate intensity augmentations
+                transforms.RandomApply([
+                    transforms.RandomAutocontrast()
+                ], p=0.3),  # Auto-contrast enhancement
+
+                # Very subtle brightness adjustment
+                transforms.RandomApply([
+                    transforms.ColorJitter(brightness=0.1, contrast=0.1)
+                ], p=0.2),
+
                 transforms.ToTensor(),
-                transforms.Normalize(mean=[0.485], std=[0.229])
+                # Use dataset-specific normalization
+                transforms.Normalize(mean=DATASET_MEAN, std=DATASET_STD)
             ])
 
     @staticmethod
@@ -88,7 +109,7 @@ class MedicalTransforms:
         if ALBUMENTATIONS_AVAILABLE:
             return A.Compose([
                 A.Resize(img_size, img_size),
-                A.Normalize(mean=[0.485], std=[0.229]),
+                A.Normalize(mean=DATASET_MEAN, std=DATASET_STD),  # Dataset-specific stats
                 ToTensorV2(),
             ])
         else:
@@ -96,7 +117,8 @@ class MedicalTransforms:
                 transforms.ToPILImage(),
                 transforms.Resize((img_size, img_size)),
                 transforms.ToTensor(),
-                transforms.Normalize(mean=[0.485], std=[0.229])
+                # Use dataset-specific normalization
+                transforms.Normalize(mean=DATASET_MEAN, std=DATASET_STD)
             ])
 
     @staticmethod
@@ -105,7 +127,7 @@ class MedicalTransforms:
         if ALBUMENTATIONS_AVAILABLE:
             return A.Compose([
                 A.Resize(img_size, img_size),
-                A.Normalize(mean=[0.485], std=[0.229]),
+                A.Normalize(mean=DATASET_MEAN, std=DATASET_STD),  # Dataset-specific stats
                 ToTensorV2(),
             ])
         else:
@@ -113,7 +135,8 @@ class MedicalTransforms:
                 transforms.ToPILImage(),
                 transforms.Resize((img_size, img_size)),
                 transforms.ToTensor(),
-                transforms.Normalize(mean=[0.485], std=[0.229])
+                # Use dataset-specific normalization
+                transforms.Normalize(mean=DATASET_MEAN, std=DATASET_STD)
             ])
 
 

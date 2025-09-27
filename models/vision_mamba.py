@@ -1,14 +1,14 @@
 """
-Vision Mamba model for multi-label X-ray classification
-Based on the Vision Mamba paper: https://arxiv.org/abs/2401.09417
+Vision Transformer backbone with strategically placed Mamba blocks
+Combines proven ViT performance with selective Mamba enhancement
 """
 
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from einops import rearrange, repeat
+from einops import rearrange
 import math
-from typing import Optional, Tuple, List
+from typing import Optional, List
 
 try:
     from mamba_ssm import Mamba
@@ -19,30 +19,28 @@ except ImportError:
 
 
 class PatchEmbed(nn.Module):
-    """Image to Patch Embedding with flexible patch sizes"""
+    """Image to Patch Embedding"""
 
-    def __init__(self, img_size=512, patch_size=16, in_chans=3, embed_dim=768):
+    def __init__(self, img_size=1024, patch_size=16, in_chans=1, embed_dim=768):
         super().__init__()
         self.img_size = img_size
         self.patch_size = patch_size
         self.grid_size = img_size // patch_size
         self.num_patches = self.grid_size ** 2
 
-        self.proj = nn.Conv2d(in_chans, embed_dim,
-                             kernel_size=patch_size, stride=patch_size)
+        self.proj = nn.Conv2d(in_chans, embed_dim, kernel_size=patch_size, stride=patch_size)
 
     def forward(self, x):
         B, C, H, W = x.shape
-        # Project patches
         x = self.proj(x)  # B, embed_dim, grid_H, grid_W
         x = x.flatten(2).transpose(1, 2)  # B, num_patches, embed_dim
         return x
 
 
-class VisionMambaBlock(nn.Module):
-    """Core Vision Mamba Block with bidirectional scanning"""
+class MambaBlock(nn.Module):
+    """Mamba block for selective state space modeling"""
 
-    def __init__(self, dim, d_state=16, d_conv=4, expand=2, dropout=0.0):
+    def __init__(self, dim, d_state=16, d_conv=4, expand=2, dropout=0.1):
         super().__init__()
         self.dim = dim
         self.norm = nn.LayerNorm(dim)
@@ -55,76 +53,85 @@ class VisionMambaBlock(nn.Module):
                 expand=expand,
             )
         else:
-            # Fallback to standard attention if Mamba not available
+            # Fallback to attention if Mamba not available
             self.mamba = nn.MultiheadAttention(dim, num_heads=8, dropout=dropout, batch_first=True)
 
         self.dropout = nn.Dropout(dropout)
 
     def forward(self, x):
-        B, N, D = x.shape
         residual = x
         x = self.norm(x)
 
         if MAMBA_AVAILABLE:
-            # Mamba forward pass
             x = self.mamba(x)
         else:
-            # Fallback attention
             x, _ = self.mamba(x, x, x)
 
         x = self.dropout(x)
         return x + residual
 
 
-class BidirectionalMamba(nn.Module):
-    """Bidirectional scanning for 2D vision data"""
+class TransformerBlock(nn.Module):
+    """Standard Transformer block with multi-head attention"""
 
-    def __init__(self, dim, d_state=16, d_conv=4, expand=2):
+    def __init__(self, dim, num_heads=12, mlp_ratio=4.0, dropout=0.1):
         super().__init__()
-        self.forward_mamba = VisionMambaBlock(dim, d_state, d_conv, expand)
-        self.backward_mamba = VisionMambaBlock(dim, d_state, d_conv, expand)
-        self.merge = nn.Linear(dim * 2, dim)
+        self.norm1 = nn.LayerNorm(dim)
+        self.norm2 = nn.LayerNorm(dim)
+
+        self.attn = nn.MultiheadAttention(
+            embed_dim=dim,
+            num_heads=num_heads,
+            dropout=dropout,
+            batch_first=True
+        )
+
+        # MLP
+        hidden_dim = int(dim * mlp_ratio)
+        self.mlp = nn.Sequential(
+            nn.Linear(dim, hidden_dim),
+            nn.GELU(),
+            nn.Dropout(dropout),
+            nn.Linear(hidden_dim, dim),
+            nn.Dropout(dropout)
+        )
 
     def forward(self, x):
-        B, N, D = x.shape
+        # Attention with residual
+        x_norm = self.norm1(x)
+        attn_out, _ = self.attn(x_norm, x_norm, x_norm)
+        x = x + attn_out
 
-        # Forward scan (top-left to bottom-right)
-        x_forward = self.forward_mamba(x)
+        # MLP with residual
+        x = x + self.mlp(self.norm2(x))
 
-        # Backward scan (bottom-right to top-left)
-        x_backward = torch.flip(x, dims=[1])
-        x_backward = self.backward_mamba(x_backward)
-        x_backward = torch.flip(x_backward, dims=[1])
-
-        # Merge both directions
-        x_merged = torch.cat([x_forward, x_backward], dim=-1)
-        x_merged = self.merge(x_merged)
-
-        return x_merged
+        return x
 
 
-class VisionMamba(nn.Module):
-    """Vision Mamba model for multi-label chest X-ray classification"""
+class ViTMambaHybrid(nn.Module):
+    """Vision Transformer with strategically placed Mamba blocks"""
 
     def __init__(
         self,
-        img_size: int = 512,
+        img_size: int = 1024,
         patch_size: int = 16,
-        in_chans: int = 3,
-        num_classes: int = 15,  # 15 medical conditions
+        in_chans: int = 1,
+        num_classes: int = 15,
         embed_dim: int = 768,
         depth: int = 12,
+        num_heads: int = 12,
+        mlp_ratio: float = 4.0,
+        dropout: float = 0.1,
+        mamba_layers: List[int] = [3, 6, 9],  # Which layers to use Mamba
         d_state: int = 16,
         d_conv: int = 4,
         expand: int = 2,
-        dropout: float = 0.1,
-        drop_path_rate: float = 0.1,
-        use_bidirectional: bool = True,
     ):
         super().__init__()
         self.num_classes = num_classes
         self.embed_dim = embed_dim
-        self.use_bidirectional = use_bidirectional
+        self.depth = depth
+        self.mamba_layers = set(mamba_layers)
 
         # Patch embedding
         self.patch_embed = PatchEmbed(
@@ -139,29 +146,36 @@ class VisionMamba(nn.Module):
         self.pos_embed = nn.Parameter(torch.zeros(1, num_patches, embed_dim))
         self.pos_dropout = nn.Dropout(dropout)
 
-        # Mamba blocks
-        if use_bidirectional:
-            self.blocks = nn.ModuleList([
-                BidirectionalMamba(embed_dim, d_state, d_conv, expand)
-                for _ in range(depth)
-            ])
-        else:
-            self.blocks = nn.ModuleList([
-                VisionMambaBlock(embed_dim, d_state, d_conv, expand, dropout)
-                for _ in range(depth)
-            ])
+        # Build hybrid layers
+        self.blocks = nn.ModuleList()
+        for i in range(depth):
+            if i in self.mamba_layers:
+                # Use Mamba block at specified layers
+                block = MambaBlock(
+                    dim=embed_dim,
+                    d_state=d_state,
+                    d_conv=d_conv,
+                    expand=expand,
+                    dropout=dropout
+                )
+            else:
+                # Use Transformer block otherwise
+                block = TransformerBlock(
+                    dim=embed_dim,
+                    num_heads=num_heads,
+                    mlp_ratio=mlp_ratio,
+                    dropout=dropout
+                )
+            self.blocks.append(block)
 
-        # Classification head
+        # Final norm
         self.norm = nn.LayerNorm(embed_dim)
 
-        # Global average pooling
-        self.global_pool = nn.AdaptiveAvgPool1d(1)
-
-        # Multi-label classification head
-        self.classifier = nn.Sequential(
-            nn.Dropout(dropout),
+        # Classification head
+        self.head = nn.Sequential(
+            nn.LayerNorm(embed_dim),
             nn.Linear(embed_dim, embed_dim // 2),
-            nn.ReLU(inplace=True),
+            nn.GELU(),
             nn.Dropout(dropout),
             nn.Linear(embed_dim // 2, num_classes)
         )
@@ -174,7 +188,7 @@ class VisionMamba(nn.Module):
         # Initialize positional embeddings
         nn.init.trunc_normal_(self.pos_embed, std=0.02)
 
-        # Initialize classifier
+        # Initialize other layers
         for m in self.modules():
             if isinstance(m, nn.Linear):
                 nn.init.trunc_normal_(m.weight, std=0.02)
@@ -185,7 +199,7 @@ class VisionMamba(nn.Module):
                 nn.init.constant_(m.weight, 1.0)
 
     def forward_features(self, x):
-        """Forward pass through feature extraction"""
+        """Forward pass through feature extraction layers"""
         # Patch embedding
         x = self.patch_embed(x)  # B, N, D
 
@@ -193,11 +207,11 @@ class VisionMamba(nn.Module):
         x = x + self.pos_embed
         x = self.pos_dropout(x)
 
-        # Apply Mamba blocks
+        # Apply blocks (mix of Transformer and Mamba)
         for block in self.blocks:
             x = block(x)
 
-        # Normalize
+        # Final norm
         x = self.norm(x)
 
         return x
@@ -207,68 +221,60 @@ class VisionMamba(nn.Module):
         # Feature extraction
         x = self.forward_features(x)  # B, N, D
 
-        # Global pooling
-        x = x.transpose(1, 2)  # B, D, N
-        x = self.global_pool(x)  # B, D, 1
-        x = x.flatten(1)  # B, D
+        # Global average pooling
+        x = x.mean(dim=1)  # B, D
 
         # Classification
-        logits = self.classifier(x)  # B, num_classes
+        logits = self.head(x)  # B, num_classes
 
         return logits
 
-    def get_attention_maps(self, x):
-        """Generate attention/importance maps for visualization"""
-        # This is a placeholder - actual implementation would depend on
-        # how we want to visualize Mamba's selective attention
-        x = self.forward_features(x)
 
-        # Return spatial attention weights (simplified)
-        batch_size = x.shape[0]
-        grid_size = int(math.sqrt(x.shape[1]))
-        attention_maps = x.mean(dim=-1).view(batch_size, grid_size, grid_size)
-
-        return attention_maps
-
-
-def create_vision_mamba_model(
+def create_vit_mamba_model(
     num_classes: int = 15,
-    img_size: int = 512,
-    model_size: str = "base"
-) -> VisionMamba:
-    """Factory function to create Vision Mamba models of different sizes"""
+    img_size: int = 1024,
+    model_size: str = "base",
+    mamba_layers: List[int] = [3, 6, 9]
+) -> ViTMambaHybrid:
+    """Factory function to create ViT-Mamba hybrid models"""
 
     if model_size == "tiny":
         config = {
             "embed_dim": 384,
-            "depth": 6,
+            "depth": 12,
+            "num_heads": 6,
             "patch_size": 16,
         }
     elif model_size == "small":
         config = {
             "embed_dim": 576,
-            "depth": 8,
+            "depth": 12,
+            "num_heads": 9,
             "patch_size": 16,
         }
     elif model_size == "base":
         config = {
             "embed_dim": 768,
             "depth": 12,
+            "num_heads": 12,
             "patch_size": 16,
         }
     elif model_size == "large":
         config = {
             "embed_dim": 1024,
             "depth": 16,
+            "num_heads": 16,
             "patch_size": 16,
         }
     else:
         raise ValueError(f"Unknown model size: {model_size}")
 
-    model = VisionMamba(
+    model = ViTMambaHybrid(
         img_size=img_size,
         num_classes=num_classes,
         in_chans=1,  # Grayscale X-rays
+        mamba_layers=mamba_layers,
+        dropout=0.1,
         **config
     )
 
@@ -297,26 +303,37 @@ MEDICAL_CONDITIONS = [
 
 if __name__ == "__main__":
     # Test the model
-    print("Testing Vision Mamba model...")
+    print("Testing ViT-Mamba Hybrid model...")
 
     # Create model
-    model = create_vision_mamba_model(
+    model = create_vit_mamba_model(
         num_classes=15,
-        img_size=512,
-        model_size="base"
+        img_size=1024,
+        model_size="base",
+        mamba_layers=[3, 6, 9]  # Use Mamba at layers 3, 6, 9
     )
 
     print(f"Model created successfully!")
     print(f"Total parameters: {sum(p.numel() for p in model.parameters()):,}")
     print(f"Trainable parameters: {sum(p.numel() for p in model.parameters() if p.requires_grad):,}")
 
-    # Test forward pass
-    dummy_input = torch.randn(2, 1, 512, 512)  # Batch of 2 grayscale X-rays
+    # Show architecture
+    print(f"\nArchitecture:")
+    print(f"- Depth: {model.depth} layers")
+    print(f"- Mamba layers: {sorted(model.mamba_layers)}")
+    print(f"- Transformer layers: {[i for i in range(model.depth) if i not in model.mamba_layers]}")
+
+    # Test forward pass with GPU if available
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    print(f"Testing on device: {device}")
+
+    model = model.to(device)
+    dummy_input = torch.randn(1, 1, 1024, 1024).to(device)  # Smaller batch for testing
 
     with torch.no_grad():
         output = model(dummy_input)
-        print(f"Input shape: {dummy_input.shape}")
-        print(f"Output shape: {output.shape}")  # Should be [2, 15]
+        print(f"\nInput shape: {dummy_input.shape}")
+        print(f"Output shape: {output.shape}")  # Should be [1, 15]
         print(f"Output sample: {output[0][:5]}")  # First 5 logits
 
-    print("\\nModel test completed successfully!")
+    print("\nModel test completed successfully!")
